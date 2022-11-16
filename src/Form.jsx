@@ -19,7 +19,8 @@ const formValidationSchema = yup.object({
       value && ["application/pdf"].includes(value.type);
     }),
   location: yup.string().url().required("Please share event location link"),
-  checked: false,
+  checked: yup.array().min(1).of(yup.string().required()).required(),
+  gender: yup.string().required("Please select gender"),
 });
 
 const Form = () => {
@@ -31,8 +32,8 @@ const Form = () => {
         pin: "",
         eventDate: "",
         seats: "",
-        gender: "",
-        checked: false,
+        gender: "female",
+        checked: ["drink", "snacks"],
         proof: "",
         location: "",
       },
@@ -118,26 +119,34 @@ const Form = () => {
         </div>
 
         <div className="fieldBox">
-          <label>Host Gender</label>
+          <h3>Host Gender</h3>
           <div>
+            <label htmlFor="male">Male</label>
             <input
               className="inputField"
               type="radio"
               name="gender"
-              values="male"
+              defaultChecked={values.gender.includes("male")}
+              values={values.gender}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              id="male"
             />{" "}
-            Male
+            <label htmlFor="female">Female</label>
             <input
               className="inputField"
               type="radio"
               name="gender"
-              value="female"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              values={values.gender}
+              defaultChecked={values.gender.includes("female")}
+              id="female"
             />{" "}
-            Female
           </div>
-          <p></p>
+          <p>{errors.gender && touched.gender ? errors.gender : null}</p>
         </div>
-        {/* <div className="fieldBox">
+        <div className="fieldBox">
           <label>Upload ID Proof :</label>
           <input
             className="inputField"
@@ -148,7 +157,7 @@ const Form = () => {
             onBlur={handleBlur}
           />
           <p>{errors.proof && touched.proof ? errors.proof : null}</p>
-        </div> */}
+        </div>
         <div className="fieldBox">
           <label>Event Location Link : </label>
           <input
@@ -161,16 +170,41 @@ const Form = () => {
           />
           <p>{errors.location && touched.location ? errors.location : null}</p>
         </div>
-        {/* <div>
+        <div>
+          <h3>Compliments</h3>
+          <label>Drink</label>
           <input
             className="inputField"
             type="checkbox"
-            name="toggle"
-            defaultChecked={values.checked}
+            name="checked"
+            value="drink"
+            defaultChecked={values.checked.includes("drink")}
             onChange={handleChange}
+            onBlur={handleBlur}
           />
-          I agree to the terms
-        </div> */}
+          <label>Snacks</label>
+          <input
+            className="inputField"
+            type="checkbox"
+            name="checked"
+            value="snacks"
+            onChange={handleChange}
+            defaultChecked={values.checked.includes("snacks")}
+            onBlur={handleBlur}
+          />
+          <label>Lunch</label>
+          <input
+            className="inputField"
+            type="checkbox"
+            name="checked"
+            value="lunch"
+            onChange={handleChange}
+            defaultChecked={values.checked.includes("lunch")}
+            onBlur={handleBlur}
+          />
+
+          <p>{errors.checked && touched.checked ? errors.checked : null}</p>
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>
