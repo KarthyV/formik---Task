@@ -70,3 +70,16 @@ input {
 .fieldBox {
   margin: 25px 0;
 }
+
+.recipeList_Container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 50px;
+  justify-content: space-evenly;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}

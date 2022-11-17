@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const formValidationSchema = yup.object({
   recipeName: yup.string().required("Recipe Name must be provided"),
@@ -16,6 +17,7 @@ const AddRecipe = () => {
   const [inputFields, setInputFields] = useState([""]);
   const step = new Array();
   step.length = inputFields.length;
+  const navigate = useNavigate();
   const { values, handleChange, handleBlur, touched, handleSubmit, errors } =
     useFormik({
       initialValues: {
@@ -41,6 +43,7 @@ const AddRecipe = () => {
           }
         );
         console.log(res);
+        navigate("/");
       },
     });
   function addInputField(e) {
