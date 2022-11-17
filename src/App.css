@@ -83,3 +83,13 @@ nav {
   display: flex;
   justify-content: space-between;
 }
+
+.preview_content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cookingTime {
+  font-weight: bold;
+  opacity: 0.5;
+}
