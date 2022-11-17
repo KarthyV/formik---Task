@@ -1,9 +1,17 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Brightness1Icon from "@mui/icons-material/Brightness1";
 
 const RecipePreview = ({ recipe }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/recipe/${recipe.id}`);
+  };
+
   return (
-    <Card sx={{ minWidth: 300, minHeight: 200 }}>
+    <Card onClick={handleClick} sx={{ minWidth: 300, minHeight: 200 }}>
       <CardMedia
         component="img"
         height="140"
@@ -18,6 +26,13 @@ const RecipePreview = ({ recipe }) => {
           🕒{recipe.cookingTime}m
         </Typography>
       </CardContent>
+      <Typography
+        className={`recipeType ${recipe.recipeType == "veg" ? "green" : "red"}`}
+        variant="p"
+        component="p"
+      >
+        <Brightness1Icon />
+      </Typography>
     </Card>
   );
 };

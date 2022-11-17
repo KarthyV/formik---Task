@@ -1,8 +1,11 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -87,9 +90,79 @@ nav {
 .preview_content {
   display: flex;
   justify-content: space-between;
+  align-content: center;
+  align-items: center;
 }
 
 .cookingTime {
   font-weight: bold;
   opacity: 0.5;
+}
+
+.viewContainer {
+  width: 90vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+}
+
+.viewRecipe {
+  height: fit-content;
+  width: 600px;
+  padding-bottom: 20px;
+}
+
+.viewPage_actions {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.ingField {
+  display: flex;
+  gap: 10px;
+}
+
+.recipeTypeField {
+  display: flex;
+  margin: 15px;
+}
+
+.recipeTypeField > input {
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+@media (max-width: 520px) {
+  .ingField {
+    flex-direction: column;
+  }
+  .formContainer {
+    padding: 20px;
+    flex: 1;
+  }
+  .App {
+    justify-content: unset;
+  }
+}
+
+.app_title {
+  cursor: pointer;
+}
+
+input {
+  margin-top: 10px;
+}
+
+.recipeType {
+  margin-left: 10px !important;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
 }
