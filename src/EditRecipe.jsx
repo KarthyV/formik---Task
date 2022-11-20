@@ -21,7 +21,7 @@ const EditRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://624e6fbb77abd9e37c86ffd1.mockapi.io/recipe/${id}`)
+    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setRecipe(data);
@@ -56,8 +56,8 @@ const EditRecipe = () => {
           ingQty: recipe.ingQty,
           recipeType: recipe.recipeType,
         };
-        fetch(`https://624e6fbb77abd9e37c86ffd1.mockapi.io/recipe/${id}`, {
-          method: "PUT",
+        fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`, {
+          method: "PATCH",
           body: JSON.stringify(updatedData),
           headers: { "Content-Type": "application/json" },
         }).then(() => navigate("/"));

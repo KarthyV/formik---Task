@@ -24,13 +24,13 @@ const ViewRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://624e6fbb77abd9e37c86ffd1.mockapi.io/recipe/${id}`)
+    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`)
       .then((res) => res.json())
       .then((data) => setRecipe(data));
   }, [id]);
 
   const handleDelete = () => {
-    fetch(`https://624e6fbb77abd9e37c86ffd1.mockapi.io/recipe/${id}`, {
+    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`, {
       method: "DELETE",
     }).then(() => {
       alert("Recipe Deleted Successfully");
@@ -79,7 +79,7 @@ const ViewRecipe = () => {
 
           <CardActions className="viewPage_actions">
             <Button
-              onClick={() => navigate(`/recipe/edit/${recipe.id}`)}
+              onClick={() => navigate(`/recipe/edit/${recipe._id}`)}
               variant="contained"
             >
               EDIT

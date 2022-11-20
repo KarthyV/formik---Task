@@ -32,17 +32,23 @@ const AddRecipe = () => {
       },
       validationSchema: formValidationSchema,
       onSubmit: async (values) => {
-        const res = await fetch(
-          "https://624e6fbb77abd9e37c86ffd1.mockapi.io/recipe",
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          }
-        );
+        const data = {
+          recipeName: values.recipeName,
+          recipeType: values.recipeType,
+          recipePoster: values.recipePoster,
+          cookingTime: values.cookingTime,
+          ingName: values.ingName,
+          ingQty: values.ingQty,
+          step: values.steps,
+        };
+        const res = await fetch("https://server-tolemy.herokuapp.com/recipes", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
         console.log(res);
         navigate("/");
       },

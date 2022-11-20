@@ -7,7 +7,7 @@ const RecipePreview = ({ recipe }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/recipe/${recipe.id}`);
+    navigate(`/recipe/${recipe._id}`);
   };
 
   return (
