@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { API } from "./api";
 
 const formValidationSchema = yup.object({
   recipeName: yup.string().required("Recipe Name must be provided"),
@@ -41,7 +42,7 @@ const AddRecipe = () => {
           ingQty: values.ingQty,
           step: values.steps,
         };
-        const res = await fetch("https://server-tolemy.herokuapp.com/recipes", {
+        const res = await fetch(`${API}/recipes`, {
           method: "POST",
           headers: {
             Accept: "application/json",

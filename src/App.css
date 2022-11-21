@@ -48,6 +48,12 @@
   flex-direction: column;
 }
 
+.login_formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -127,6 +133,7 @@ nav {
 .recipeTypeField {
   display: flex;
   margin: 15px;
+  align-items: center;
 }
 
 .recipeTypeField > input {

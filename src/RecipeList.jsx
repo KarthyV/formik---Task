@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { API } from "./api";
 import RecipePreview from "./RecipePreview";
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch(`https://server-tolemy.herokuapp.com/recipes`)
+    fetch(`${API}/recipes`)
       .then((res) => res.json())
       .then((data) => setRecipes(data));
   }, []);

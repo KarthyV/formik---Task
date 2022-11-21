@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
+import { API } from "./api";
 
 const formValidationSchema = yup.object({
   recipeName: yup.string().required("Recipe Name must be provided"),
@@ -21,7 +22,7 @@ const EditRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`)
+    fetch(`${API}/recipes/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setRecipe(data);
@@ -56,7 +57,7 @@ const EditRecipe = () => {
           ingQty: recipe.ingQty,
           recipeType: recipe.recipeType,
         };
-        fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`, {
+        fetch(`${API}/recipes/${id}`, {
           method: "PATCH",
           body: JSON.stringify(updatedData),
           headers: { "Content-Type": "application/json" },

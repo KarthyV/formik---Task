@@ -15,6 +15,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import { API } from "./api";
 
 const ViewRecipe = () => {
   const { id } = useParams();
@@ -24,13 +25,13 @@ const ViewRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`)
+    fetch(`${API}/recipes/${id}`)
       .then((res) => res.json())
       .then((data) => setRecipe(data));
   }, [id]);
 
   const handleDelete = () => {
-    fetch(`https://server-tolemy.herokuapp.com/recipes/${id}`, {
+    fetch(`${API}/recipes/${id}`, {
       method: "DELETE",
     }).then(() => {
       alert("Recipe Deleted Successfully");

@@ -2,6 +2,7 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Brightness1Icon from "@mui/icons-material/Brightness1";
+import { API } from "./api";
 
 const RecipePreview = ({ recipe }) => {
   const navigate = useNavigate();
