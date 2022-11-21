@@ -12,15 +12,17 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { API } from "./api";
+import { MyContext } from "./context";
 
 const ViewRecipe = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState("");
   const [dense, setDense] = useState(false);
+  const { userRole } = useContext(MyContext);
 
   const navigate = useNavigate();
 
@@ -85,9 +87,11 @@ const ViewRecipe = () => {
             >
               EDIT
             </Button>
-            <Button onClick={handleDelete} variant="contained" color="error">
-              DELETE
-            </Button>
+            {userRole == "Admin" && (
+              <Button onClick={handleDelete} variant="contained" color="error">
+                DELETE
+              </Button>
+            )}
           </CardActions>
         </Card>
       </div>
