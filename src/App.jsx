@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AddRecipe from "./AddRecipe";
 import "./App.css";
 import Form from "./Form";
@@ -12,11 +12,15 @@ import {
 import RecipeList from "./RecipeList";
 import ViewRecipe from "./ViewRecipe";
 import EditRecipe from "./EditRecipe";
+import Login from "./Login";
+import Signup from "./Signup";
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { MyContext } from "./context";
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { userRole } = useContext(MyContext);
 
   return (
     <div>
@@ -47,6 +51,8 @@ function App() {
           <Route path="/recipe/add" element={<AddRecipe />} />
           <Route path="/recipe/:id" element={<ViewRecipe />} />
           <Route path="recipe/edit/:id" element={<EditRecipe />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           {/* <Form /> */}
         </Routes>
       </div>

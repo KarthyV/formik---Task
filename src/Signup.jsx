@@ -31,8 +31,8 @@ const SignUp = () => {
           body: JSON.stringify(values),
         });
         const userRes = await res.json();
-        setIsAuthenticated(true);
         setUser(userRes);
+        setIsAuthenticated(true);
         localStorage.setItem("user", userRes);
         console.log(userRes);
         navigate("/");
