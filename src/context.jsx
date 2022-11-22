@@ -9,6 +9,12 @@ const AppContext = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+      setIsAuthenticated(true);
+    }
+  }, []);
+  useEffect(() => {
     if (isAuthenticated && user) {
       console.log(user);
       fetch(`${API}/users/auth`, {

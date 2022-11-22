@@ -1,13 +1,20 @@
-import React, { useContext } from "react";
 import { useFormik } from "formik";
-import { MyContext } from "./context";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { API } from "./api";
-import { useNavigate } from "react-router-dom";
+import { MyContext } from "./context";
 
 const Login = () => {
   const navigate = useNavigate();
   const { user, setUser, isAuthenticated, setIsAuthenticated } =
     useContext(MyContext);
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+      setIsAuthenticated(true);
+      navigate("/");
+    }
+  }, []);
   const { values, handleChange, handleBlur, touched, handleSubmit, errors } =
     useFormik({
       initialValues: {
@@ -24,10 +31,15 @@ const Login = () => {
           body: JSON.stringify(values),
         });
         const userRes = await res.json();
-        setUser(userRes);
-        setIsAuthenticated(true);
-        localStorage.setItem("user", userRes);
-        navigate("/");
+        console.log(userRes);
+        if (res.status == 200 || res.status == 201) {
+          setUser(userRes);
+          setIsAuthenticated(true);
+          localStorage.setItem("user", JSON.stringify(userRes));
+          navigate("/");
+        } else {
+          alert(userRes.message);
+        }
       },
     });
   return (
@@ -46,7 +58,7 @@ const Login = () => {
         <div className="fieldBox">
           <label>Password</label>
           <input
-            type="text"
+            type="password"
             placeholder="Enter your password"
             onChange={handleChange}
             value={values.password}
@@ -55,6 +67,9 @@ const Login = () => {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>
+        <Link to="/signup">Don't have an account? Click Here!</Link>
+      </p>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { API } from "./api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "./context";
 const formValidationSchema = yup.object({
   username: yup.string().min(6).required(),
@@ -31,11 +31,15 @@ const SignUp = () => {
           body: JSON.stringify(values),
         });
         const userRes = await res.json();
-        setUser(userRes);
-        setIsAuthenticated(true);
-        localStorage.setItem("user", userRes);
-        console.log(userRes);
-        navigate("/");
+        if (res.status == 200 || res.status == 201) {
+          setUser(userRes);
+          setIsAuthenticated(true);
+          localStorage.setItem("user", JSON.stringify(userRes));
+          console.log(userRes);
+          navigate("/");
+        } else {
+          alert(userRes.message);
+        }
       },
     });
   return (
@@ -101,6 +105,9 @@ const SignUp = () => {
         </div>
         <button type="submit">SignUp</button>
       </form>
+      <p>
+        <Link to="/login">Already have an account? Login</Link>
+      </p>
     </div>
   );
 };

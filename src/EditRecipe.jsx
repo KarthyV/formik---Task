@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { API } from "./api";
+import { MyContext } from "./context";
 
 const formValidationSchema = yup.object({
   recipeName: yup.string().required("Recipe Name must be provided"),
@@ -20,19 +21,25 @@ const EditRecipe = () => {
   const [inputFields, setInputFields] = useState([]);
   const [steps, setSteps] = useState([]);
   const navigate = useNavigate();
+  const { userRole, isAuthenticated } = useContext(MyContext);
 
   useEffect(() => {
-    fetch(`${API}/recipes/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setRecipe(data);
-        const numberOfInputFields = [];
-        numberOfInputFields.length = data.step.length;
-        numberOfInputFields.fill("");
-        setInputFields(numberOfInputFields);
-        setSteps(data.step);
-      });
-  }, []);
+    if (!isAuthenticated || userRole == "ReadOnly") {
+      alert("Not Authorized");
+      navigate("/");
+    } else {
+      fetch(`${API}/recipes/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setRecipe(data);
+          const numberOfInputFields = [];
+          numberOfInputFields.length = data.step.length;
+          numberOfInputFields.fill("");
+          setInputFields(numberOfInputFields);
+          setSteps(data.step);
+        });
+    }
+  }, [isAuthenticated]);
 
   const { values, handleChange, handleBlur, touched, handleSubmit, errors } =
     useFormik({

@@ -22,14 +22,17 @@ const ViewRecipe = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState("");
   const [dense, setDense] = useState(false);
-  const { userRole } = useContext(MyContext);
+  const { userRole, user } = useContext(MyContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${API}/recipes/${id}`)
-      .then((res) => res.json())
-      .then((data) => setRecipe(data));
+    if (!user) navigate("/login");
+    else {
+      fetch(`${API}/recipes/${id}`)
+        .then((res) => res.json())
+        .then((data) => setRecipe(data));
+    }
   }, [id]);
 
   const handleDelete = () => {
@@ -80,19 +83,26 @@ const ViewRecipe = () => {
             </List>
           </CardContent>
 
-          <CardActions className="viewPage_actions">
-            <Button
-              onClick={() => navigate(`/recipe/edit/${recipe._id}`)}
-              variant="contained"
-            >
-              EDIT
-            </Button>
-            {userRole == "Admin" && (
-              <Button onClick={handleDelete} variant="contained" color="error">
-                DELETE
-              </Button>
-            )}
-          </CardActions>
+          {userRole == "Normal" ||
+            (userRole == "Admin" && (
+              <CardActions className="viewPage_actions">
+                <Button
+                  onClick={() => navigate(`/recipe/edit/${recipe._id}`)}
+                  variant="contained"
+                >
+                  EDIT
+                </Button>
+                {userRole == "Admin" && (
+                  <Button
+                    onClick={handleDelete}
+                    variant="contained"
+                    color="error"
+                  >
+                    DELETE
+                  </Button>
+                )}
+              </CardActions>
+            ))}
         </Card>
       </div>
     );
