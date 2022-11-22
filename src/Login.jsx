@@ -8,13 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { user, setUser, isAuthenticated, setIsAuthenticated } =
     useContext(MyContext);
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      setUser(JSON.parse(localStorage.getItem("user")));
-      setIsAuthenticated(true);
-      navigate("/");
-    }
-  }, []);
+
   const { values, handleChange, handleBlur, touched, handleSubmit, errors } =
     useFormik({
       initialValues: {

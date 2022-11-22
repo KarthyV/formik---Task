@@ -22,6 +22,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const { userRole, user, setUser, setIsAuthenticated } = useContext(MyContext);
+
   const handleLogout = async (e) => {
     e.preventDefault();
     const res = await fetch(`${API}/users/logout`, {

@@ -7,16 +7,19 @@ import RecipePreview from "./RecipePreview";
 
 const RecipeList = () => {
   const [recipes, setRecipes] = useState([]);
-  const { userRole, user } = useContext(MyContext);
+  const { userRole, user, setUser, setIsAuthenticated } = useContext(MyContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) navigate("/login");
-    else {
-      fetch(`${API}/recipes`)
-        .then((res) => res.json())
-        .then((data) => setRecipes(data));
+    if (!user) {
+      if (localStorage.getItem("user")) {
+        setUser(JSON.parse(localStorage.getItem("user")));
+        setIsAuthenticated(true);
+      } else navigate("/login");
     }
+    fetch(`${API}/recipes`)
+      .then((res) => res.json())
+      .then((data) => setRecipes(data));
   }, []);
 
   return (
