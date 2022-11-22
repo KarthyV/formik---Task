@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API } from "./api";
 import { MyContext } from "./context";
@@ -58,6 +58,9 @@ const Login = () => {
             value={values.password}
             name="password"
           />
+          <p className="forget_pass">
+            <Link to="/forget-password">Forget Password?</Link>
+          </p>
         </div>
         <button type="submit">Login</button>
       </form>

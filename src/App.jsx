@@ -17,6 +17,7 @@ import Signup from "./Signup";
 import { Box, AppBar, Toolbar, Typography, Button } from "@mui/material";
 import { MyContext } from "./context";
 import { API } from "./api";
+import ForgetPass from "./ForgetPass";
 
 function App() {
   const navigate = useNavigate();
@@ -82,6 +83,7 @@ function App() {
             ))}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgetPass />} />
           {/* <Form /> */}
         </Routes>
       </div>
