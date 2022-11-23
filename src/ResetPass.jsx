@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API } from "./api";
+import { MyContext } from "./context";
 
 const ResetPass = () => {
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [verified, setVerified] = useState(false);
   const { id } = useParams();
+  const { setUser, setIsAuthenticated } = useContext(MyContext);
+
   const handleVerification = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -26,6 +29,24 @@ const ResetPass = () => {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    const res = await fetch(`${API}/users/change-password/${id}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ password }),
+    });
+    console.log(res);
+    if (res.status == 200) {
+      const data = await res.json();
+      alert("Password updated successfully");
+      setUser(data);
+      setIsAuthenticated(true);
+      localStorage.setItem("user", JSON.stringify(userRes));
+      navigate("/");
+    }
   };
   return (
     <div className="resetForm">

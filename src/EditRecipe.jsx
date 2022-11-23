@@ -21,7 +21,7 @@ const EditRecipe = () => {
   const [inputFields, setInputFields] = useState([]);
   const [steps, setSteps] = useState([]);
   const navigate = useNavigate();
-  const { userRole, isAuthenticated } = useContext(MyContext);
+  const { userRole, isAuthenticated, user } = useContext(MyContext);
 
   useEffect(() => {
     if (!isAuthenticated || userRole == "ReadOnly") {
@@ -67,7 +67,11 @@ const EditRecipe = () => {
         fetch(`${API}/recipes/${id}`, {
           method: "PATCH",
           body: JSON.stringify(updatedData),
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
         }).then(() => navigate("/"));
         console.log(updatedData);
       },
